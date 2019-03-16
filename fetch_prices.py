@@ -60,6 +60,7 @@ notify_ids = [
 
 for item_id in notify_ids:
     item = get_item_by_id(item_id)
+    print(item)
     mode = "a" if os.path.getsize(FILEPATH) < 100000 else "w"
     with open(FILEPATH, mode) as f:
         ts_format = "%Y-%m-%d %H:%M"
