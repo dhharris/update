@@ -1,4 +1,3 @@
-# BUILD FILE SYNTAX: SKYLARK 
 python_binary(
   name = 'fetch_prices',
   platform = 'py3',
