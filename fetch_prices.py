@@ -1,6 +1,7 @@
 import json
 import os
 
+from datetime import datetime
 from urllib.request import urlopen
 
 FILEPATH = "/tmp/runescape.log"
@@ -53,11 +54,29 @@ def get_item_by_id(item_id: int) -> Item:
     return Item.from_json_data(data)
 
 
-# astral rune
-item = get_item_by_id(9075)
-with open(FILEPATH, "a") as f:
-    f.write(str(item))
+def main():
+    notify_ids = [
+        9075,  # astral rune
+    ]
+
+    for item_id in notify_ids:
+        item = get_item_by_id(item_id)
+        print(item)
+        try:
+            size = os.path.getsize(FILEPATH)
+            mode = "a" if size < 100000 else "w"
+        except os.error:
+            mode = "w"
+        with open(FILEPATH, mode) as f:
+            ts_format = "%Y-%m-%d %H:%M"
+            header = f"--------[ {datetime.now().strftime(ts_format)} ]--------"
+            f.write(f"{header}\n{item}\n")
+
+    notify(
+        "Grand Exchange", "Prices updated", "See /tmp/runescape.log for info"
+    )
+    os.system("/usr/bin/open /tmp/runescape.log")
 
 
-notify("Grand Exchange", "Prices updated", "See /tmp/runescape.log for info")
-os.system("/usr/bin/open /tmp/runescape.log")
+if __name__ == "__main__":
+    main()

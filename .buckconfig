@@ -1,0 +1,6 @@
+[parser]
+  default_build_file_syntax = SKYLARK
+[python]
+  interpreter = /usr/bin/python
+[python#py3]
+  interpreter = /usr/local/bin/python3
