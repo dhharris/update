@@ -1,1 +1,1 @@
-vim +PluginUpdate +qall
+/usr/local/bin/vim +PluginUpdate +qall

@@ -14,7 +14,7 @@ $BREW upgrade
 
 # Update Vim plugins
 echo "Updating vim plugins..."
-sh ~/Scripts/update_vim_plugins.sh
+sh ~/Scripts/update/update_vim_plugins.sh
 
 # Update pip
 echo "Updating pip..."

@@ -1,2 +1,2 @@
 #!/bin/sh
-python3 "$HOME"/update/fetch_prices.py | wall
+/usr/local/bin/python "$HOME"/Scripts/update/fetch_prices.py | wall
