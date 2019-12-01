@@ -1,7 +1,6 @@
 #!/bin/bash
 BREW="/usr/local/bin/brew"
-PIP_REVIEW="/usr/local/bin/pip-review"
-PIP="/usr/local/bin/pip"
+PIP="/usr/local/bin/pip3"
 RUST_BIN="$HOME/.cargo/bin"
 
 # Add a timestamp to the logfile
@@ -14,22 +13,19 @@ $BREW upgrade
 
 # Update Vim plugins
 echo "Updating vim plugins..."
-sh ~/Scripts/update/update_vim_plugins.sh
-
-# Update pip
-echo "Updating pip..."
-$PIP install --upgrade pip
+sh ~/update/update_vim_plugins.sh
 
 # Update pip packages
 echo "Updating pip packages..."
-$PIP_REVIEW --auto
+$PIP install --upgrade $($PIP list -o --format freeze 2>/dev/null | cut -d= -f1) 2>/dev/null
 
-# Update rustc and cargo packages
-echo "Updating rust toolchain..."
-$RUST_BIN/rustup -v update nightly
-
-echo "Updating cargo packages..."
-$RUST_BIN/cargo install-update --all
+if [ -x $RUST_BIN ]; then 
+    # Update rustc and cargo packages
+    echo "Updating rust toolchain..."
+    $RUST_BIN/rustup -v update nightly
+    echo "Updating cargo packages..."
+    $RUST_BIN/cargo install-update --all
+fi
 
 # Cleanup
 echo "Cleaning up..."
